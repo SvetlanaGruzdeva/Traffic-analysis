@@ -1,11 +1,12 @@
 import boto3
 from urllib3 import PoolManager
+from datetime import datetime
 
 def lambda_handler(event, context):
 
-    url='http://opendata.ndw.nu/incidents.xml.gz' # put your url here
-    bucket = 'inc-anal-files-gz' #your s3 bucket
-    key = 'filename.gz' #your desired s3 path or filename
+    url='http://opendata.ndw.nu/incidents.xml.gz'
+    bucket = 'inc-anal-files-gz'
+    key = url.split('/')[-1].replace('incidents', datetime.today().strftime('%d-%m-%Y'))
 
     s3=boto3.client('s3')
 

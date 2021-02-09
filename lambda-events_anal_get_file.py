@@ -11,4 +11,10 @@ def lambda_handler(event, context):
     s3=boto3.client('s3')
 
     http = PoolManager()
-    s3.upload_fileobj(http.request('GET', url, preload_content=False), bucket, key)
+    try:
+        s3.upload_fileobj(http.request('GET', url, preload_content=False), bucket, key)
+    except ValueError:
+        print('Invalid link.')
+    except s3.exceptions.NoSuchBucket:
+        print('No such bucket.')
+    print('File saved successfully.')

@@ -14,7 +14,7 @@ def lambda_handler(event, context):
     try:
         s3.upload_fileobj(http.request('GET', url, preload_content=False), bucket, key)
     except ValueError:
-        print('Invalid link.')
+        print('ERROR: Invalid link.')
     except s3.exceptions.NoSuchBucket:
-        print('No such bucket.')
+        print('ERROR: No such bucket.')
     print('File saved successfully.')
